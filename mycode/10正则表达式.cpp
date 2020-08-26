@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+//从后往前搜导致无法处理 多个*连续的情景
 class Solution {
 private:
     inline int isSpecial(char ch){
