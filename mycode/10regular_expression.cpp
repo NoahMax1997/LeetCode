@@ -18,19 +18,9 @@ public:
         if(s[s_size-1]==p[p_size-1]||p[p_size-1]=='.'){
             return isMatch(s,p,s_size-1,p_size-1);
         }else if(p[p_size-1]=='*'&&p[p_size-2]=='.'){
-            bool ret=false;
-            // s_size--;
-            while(s_size>=0){
-                p_size-=2;
-                if(isMatch(s,p,s_size,p_size)){
-                    return true;
-                }
-                p_size+=2;
-                s_size--;
-            }
-            return ret;
+            return isMatch(s,p,s_size,p_size-2)||isMatch(s,p,s_size-1,p_size);
         }else if(p[p_size-1]=='*'&&s[s_size-1]==p[p_size-2]){
-            
+            return isMatch(s,p,s_size,p_size-2)||isMatch(s,p,s_size-1,p_size);
         }else if(p[p_size-1]=='*'&&s[s_size-1]!=p[p_size-2]){
             return isMatch(s,p,s_size,p_size-2);
         }else{
@@ -46,12 +36,12 @@ public:
 int main()
 {
     Solution a;
-    // cout<<a.isMatch("aa", "a")<<endl;
-    // cout<<a.isMatch("aa", "a*")<<endl;
-    // cout<<a.isMatch("ab", ".*")<<endl;
-    // cout<<a.isMatch("aab", "c*a*b")<<endl;
-    // cout<<a.isMatch("mississippi", "mis*is*p*.")<<endl;
-    // cout<<a.isMatch("mississippi", "mis*is*ip*.")<<endl;
+    cout<<a.isMatch("aa", "a")<<endl;
+    cout<<a.isMatch("aa", "a*")<<endl;
+    cout<<a.isMatch("ab", ".*")<<endl;
+    cout<<a.isMatch("aab", "c*a*b")<<endl;
+    cout<<a.isMatch("mississippi", "mis*is*p*.")<<endl;
+    cout<<a.isMatch("mississippi", "mis*is*ip*.")<<endl;
     cout<<a.isMatch("a", ".*..a*")<<endl;
     system("pause");
     return 0;
