@@ -10,6 +10,36 @@ private:
         else return 0;
     }
 public:
+    class Solution
+{
+public:
+    bool isMatch(string s, string p,int s_size,int p_size){
+        if(s_size==0&&p_size==0){
+            return true;
+        }else if(s_size!=0&&p_size==0){
+            return false;
+        }else if(s_size==0&&p_size>=2&&p[p_size-1]=='*'){
+            return isMatch(s,p,s_size,p_size-2);
+        }else if(s_size==0){
+            return false;
+        }
+        if(s[s_size-1]==p[p_size-1]||p[p_size-1]=='.'){
+            return isMatch(s,p,s_size-1,p_size-1);
+        }else if(p[p_size-1]=='*'&&p[p_size-2]=='.'){
+            return isMatch(s,p,s_size,p_size-2)||isMatch(s,p,s_size-1,p_size);
+        }else if(p[p_size-1]=='*'&&s[s_size-1]==p[p_size-2]){
+            return isMatch(s,p,s_size,p_size-2)||isMatch(s,p,s_size-1,p_size);
+        }else if(p[p_size-1]=='*'&&s[s_size-1]!=p[p_size-2]){
+            return isMatch(s,p,s_size,p_size-2);
+        }else{
+            return false;
+        }
+    }
+    bool isMatch(string s, string p)
+    {
+        return isMatch(s,p,s.size(),p.size());   
+    }
+};
     bool isMatch(string s, string p) {
         int first_index=0,second_index=0;
         while(first_index<s.size()&&second_index<p.size()){
@@ -65,7 +95,8 @@ public:
 };
 int main (){
     Solution a;
-    a.isMatch("aaa","ab*a");
+    
+    cout<<a.isMatch("abaabaaaabbabbaaabaabababbaabaabbabaaaaabababbababaabbabaabbbbaabbbbbbbabaaabbaaaaabbaabbbaaaaabbbabb","ab*aaba**abbaaaa**b*b****aa***a*b**ba*a**ba*baaa*b*ab*");
     system("pause");
     return 0;
 }
