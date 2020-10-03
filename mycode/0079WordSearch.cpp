@@ -75,7 +75,7 @@ public:
                 t_str="";
                 if(word[0]==board[i][j]){
                     cout<<i<<" "<<j<<endl;
-                    dfs(board, word,0,t_str,i,j);
+                    dfs(board, word,0,t_str,i,j);//choose the begin position
                     if(t_str==word){
                         return true;
                     }
