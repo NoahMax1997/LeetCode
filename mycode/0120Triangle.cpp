@@ -28,9 +28,31 @@ public:
             }    
         }
     }
+
     int minimumTotal(vector<vector<int>>& triangle) {
         int min_sum=100000,t_sum=0;
-        dfs(triangle,0,0,min_sum,t_sum);
+        // dfs(triangle,0,0,min_sum,t_sum);
+        if(triangle.size()==0){
+            return 0;
+        }
+        int dp[201][201]={0};
+        dp[0][0]=triangle[0][0];
+        for(int i=0;i<triangle.size();i++){
+            for(int j=0;j<triangle[i].size();j++){
+                if(j==0){
+                    dp[i][j]=dp[i-1][j]+triangle[i][j];
+                }else if(j==triangle[i].size()-1){
+                    dp[i][j]=dp[i-1][triangle[i-1].size()-1]+triangle[i][j];
+                }else{
+                    dp[i][j]=min(dp[i-1][j],dp[i-1][j-1])+triangle[i][j];
+                }
+            }
+        }
+        for(int i=0;i<triangle[triangle.size()-1].size();i++){
+            if(dp[triangle.size()-1][i]<min_sum){
+                min_sum=dp[triangle.size()-1][i];
+            }
+        }
         return min_sum;
     }
 };
