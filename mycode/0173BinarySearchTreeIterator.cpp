@@ -12,32 +12,60 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class BSTIterator {
+class BSTIteratorDFS{
 public:
     vector<int> vec;
-    int index=0;
-    BSTIterator(TreeNode* root) {
+    int index;
+    BSTIteratorDFS(TreeNode* root) {
         index=0;
         vec.clear();
-        vec.swap(vector<int>());
+        vector<int>().swap(vec);
         inorder(root);
     }
     void inorder(TreeNode* root){
         if(root==NULL){
             return;
         }
-        BSTIterator(root->left);
+        inorder(root->left);
         vec.push_back(root->val);
-        BSTIterator(root->right);
+        inorder(root->right);
     }
     /** @return the next smallest number */
     int next() {
+        // cout<<vec[index]<<endl;
         return vec[index++];
     }
     
     /** @return whether we have a next smallest number */
     bool hasNext() {
-        return index+1<vec.size();
+        return index<vec.size();
+    }
+};
+class BSTIteratorStack{
+public:
+    stack<TreeNode*> st;
+    BSTIteratorStack(TreeNode* root) {
+        lpush(root);
+    }
+    void lpush(TreeNode* root){
+        if(root==NULL){
+            return;
+        }
+        st.push(root);
+        lpush(root->left);
+    }
+    /** @return the next smallest number */
+    int next() {
+        // cout<<vec[index]<<endl;
+        TreeNode* t=st.top();
+        st.pop();
+        lpush(t->right);
+        return t->val;
+    }
+    
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return st.size();
     }
 };
 int main (){
