@@ -55,6 +55,7 @@ public:
         }
         else{
             // pushStringToSet(arr[index]);
+            // pushStringToSet(arr[index]);
             dfs(arr,index+1,len+arr[index].size());
             eraseStringInSet(arr[index]);
             dfs(arr,index+1,len);
