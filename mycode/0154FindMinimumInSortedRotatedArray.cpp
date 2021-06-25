@@ -17,6 +17,7 @@ public:
         }
     }
     int findMin(vector<int>& nums) {
+    int findMin(vector<int>& nums) {
         
     }
 };
